@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoolTV</title>
+<meta name="description" content="CoolTV – IPTV приложение за Android TV, телефон и таблет.">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0F14;
+    --panel: #121A23;
+    --panel2: #1A2630;
+    --line: #243341;
+    --text: #FFFFFF;
+    --text2: #93A1AD;
+    --purple: #5B2EA6;
+    --blue: #1E7CD6;
+    --cyan: #3FD6E8;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.55;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(11, 15, 20, .85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; text-decoration: none; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  nav a { color: var(--text2); text-decoration: none; margin-left: 22px; font-size: 15px; }
+  nav a:hover { color: var(--text); }
+
+  .hero {
+    background:
+      radial-gradient(900px 420px at 15% -10%, rgba(91, 46, 166, .55), transparent 70%),
+      radial-gradient(800px 420px at 95% 10%, rgba(30, 124, 214, .45), transparent 70%);
+    padding: 80px 0 72px;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+  .hero h1 { font-size: clamp(34px, 5vw, 54px); line-height: 1.1; margin: 0 0 16px; font-weight: 800; }
+  .hero h1 span {
+    background: linear-gradient(90deg, #9C7CFF, var(--cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { color: var(--text2); font-size: 18px; margin: 0 0 28px; max-width: 34em; }
+  .hero .logo { width: 100%; max-width: 300px; justify-self: center; border-radius: 56px; box-shadow: 0 30px 80px rgba(30, 124, 214, .35); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 28px; border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    color: #fff; font-weight: 600; font-size: 17px; text-decoration: none;
+    box-shadow: 0 10px 30px rgba(30, 124, 214, .35);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(30, 124, 214, .5); }
+  .btn svg { width: 20px; height: 20px; }
+  .ver { display: block; margin-top: 12px; color: var(--text2); font-size: 14px; }
+
+  section { padding: 64px 0; }
+  section h2 { font-size: 30px; margin: 0 0 8px; }
+  section .lead { color: var(--text2); margin: 0 0 32px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+  .card .ic { font-size: 26px; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; }
+  .card p { margin: 0; color: var(--text2); font-size: 15px; }
+
+  .devices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .devices .card { text-align: center; }
+  .devices .ic { font-size: 40px; }
+
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: 14px; }
+  ol.steps li {
+    counter-increment: s; position: relative;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px 20px 18px 70px;
+  }
+  ol.steps li::before {
+    content: counter(s); position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: grid; place-items: center; font-weight: 800;
+  }
+  ol.steps b { display: block; }
+  ol.steps span { color: var(--text2); font-size: 15px; }
+
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .plan { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 26px 22px; text-align: center; }
+  .plan.mid { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue) inset; }
+  .plan h3 { margin: 0 0 12px; }
+  .plan .price { font-size: 32px; font-weight: 800; color: var(--text2); margin-bottom: 4px; }
+  .plan .per { color: var(--text2); font-size: 14px; }
+  .note { margin-top: 18px; color: var(--text2); font-size: 15px; text-align: center; }
+
+  .cta { text-align: center; background: linear-gradient(135deg, rgba(91, 46, 166, .35), rgba(30, 124, 214, .3)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .cta h2 { margin-bottom: 20px; }
+
+  footer { padding: 28px 0; color: var(--text2); font-size: 14px; text-align: center; }
+
+  @media (max-width: 820px) {
+    .hero { padding: 48px 0; }
+    .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+    .hero p { margin-left: auto; margin-right: auto; }
+    .hero .logo { max-width: 180px; border-radius: 36px; grid-row: 1; }
+    .grid, .devices, .plans { grid-template-columns: 1fr; }
+    nav { display: none; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="icon.png" alt="">CoolTV</a>
+    <nav>
+      <a href="#features">Възможности</a>
+      <a href="#devices">Устройства</a>
+      <a href="#install">Инсталация</a>
+      <a href="#plans">Абонамент</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Телевизия <span>навсякъде</span> у дома</h1>
+      <p>CoolTV е лесно IPTV приложение за Android TV, телефон и таблет. Гледай каналите на живо, връщай предавания назад и пускай записи от изминалите дни.</p>
+      <a class="btn dl" href="https://github.com/GeorgiSSotirov/cooltv-updates/releases/latest">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+        Свали
+      </a>
+      <span class="ver" id="ver">Android 5.0 или по-нов</span>
+    </div>
+    <img class="logo" src="icon.png" alt="CoolTV">
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Възможности</h2>
+    <p class="lead">Всичко нужно за телевизията, в едно приложение.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">📺</div><h3>Телевизия и радио</h3><p>Всички канали, подредени по жанрове, с бърз превключвател и номер на канала.</p></div>
+      <div class="card"><div class="ic">⏪</div><h3>ЗАПИС</h3><p>Пусни предаване от изминалите дни, превъртай напред и назад, продължи към следващото.</p></div>
+      <div class="card"><div class="ic">⏮</div><h3>Отначало</h3><p>Започнало ли е вече предаването? Едно натискане и го гледаш от началото.</p></div>
+      <div class="card"><div class="ic">🗓️</div><h3>ТВ програма</h3><p>Какво върви сега и какво следва – направо под картината.</p></div>
+      <div class="card"><div class="ic">🔒</div><h3>Родителски контрол</h3><p>ПИН код за съдържание за възрастни.</p></div>
+      <div class="card"><div class="ic">🔄</div><h3>Автоматични ъпдейти</h3><p>Новите версии се инсталират с едно натискане, без ровене из настройки.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="devices">
+  <div class="wrap">
+    <h2>Устройства</h2>
+    <p class="lead">Работи с дистанционно или с пръст.</p>
+    <div class="devices">
+      <div class="card"><div class="ic">📦</div><h3>Android TV боксове</h3><p>MAG, Xiaomi Mi Box и други приемници с Android.</p></div>
+      <div class="card"><div class="ic">🖥️</div><h3>Телевизори</h3><p>Смарт телевизори с Android TV / Google TV.</p></div>
+      <div class="card"><div class="ic">📱</div><h3>Телефони и таблети</h3><p>С екранен джойстик и плъзгане на записите с пръст.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Инсталация</h2>
+    <p class="lead">Четири стъпки и си готов.</p>
+    <ol class="steps">
+      <li><b>Свали приложението</b><span>Натисни „Свали“ от устройството, на което ще гледаш.</span></li>
+      <li><b>Разреши инсталацията</b><span>Ако устройството попита, позволи инсталиране на приложения от този източник.</span></li>
+      <li><b>Отвори CoolTV</b><span>На екрана ще видиш MAC адреса на устройството. Продиктувай го на доставчика си.</span></li>
+      <li><b>Натисни „Свържи“</b><span>След като доставчикът потвърди активирането – каналите се зареждат и можеш да гледаш.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="wrap">
+    <h2>Цени и абонамент</h2>
+    <p class="lead">Изберете план, който ви подхожда.</p>
+    <div class="plans">
+      <div class="plan"><h3>1 месец</h3><div class="price">—</div><div class="per">предстои</div></div>
+      <div class="plan mid"><h3>6 месеца</h3><div class="price">—</div><div class="per">предстои</div></div>
+      <div class="plan"><h3>12 месеца</h3><div class="price">—</div><div class="per">предстои</div></div>
+    </div>
+    <p class="note">Цените ще бъдат обявени скоро.</p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Готов ли си да гледаш?</h2>
+    <a class="btn dl" href="https://github.com/GeorgiSSotirov/cooltv-updates/releases/latest">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+      Свали CoolTV
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="year">2026</span> CoolTV</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  // Point "Свали" straight at the newest APK; the releases page stays as a fallback.
+  fetch('https://api.github.com/repos/GeorgiSSotirov/cooltv-updates/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rel) {
+      if (!rel || !rel.assets) return;
+      var apk = rel.assets.find(function (a) { return /\.apk$/i.test(a.name); });
+      if (!apk) return;
+      document.querySelectorAll('a.dl').forEach(function (a) { a.href = apk.browser_download_url; });
+      var mb = (apk.size / 1048576).toFixed(0);
+      document.getElementById('ver').textContent = 'Версия ' + rel.tag_name + ' · ' + mb + ' MB · Android 5.0 или по-нов';
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
